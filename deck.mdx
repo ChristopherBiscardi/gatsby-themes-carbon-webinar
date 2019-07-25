@@ -1,0 +1,189 @@
+import {
+  Notes,
+  themes
+} from "mdx-deck";
+
+# Gatsby Themes
+
+## Composition
+
+---
+
+# Composition?
+
+<Notes>
+
+Composition is the core themes concept
+
+ </Notes>
+
+- gatsby-config
+- shadowing
+- ?
+
+---
+
+## gatsby-theme-blog
+
+## +
+
+## gatsby-theme-notes
+
+---
+
+# My site
+
+- gatsby-theme-blog
+- gatsby-theme-notes
+- ./src/
+
+---
+
+# Q: What is a Gatsby Site?
+
+A: `gatsby-config`
+
+---
+
+# Q: What are themes?
+
+A: Gatsby Sites
+
+---
+
+# Gatsby all the way down
+
+---
+
+### Many Sites === Many Configs
+
+- gatsby-theme-blog/gatsby-config.js
+- gatsby-theme-notes/gatsby-config.js
+- ./gatsby-config.js
+
+---
+
+# We need one config
+
+```js
+module.exports = {
+  siteMetadata: {},
+  plugins: []
+};
+```
+
+---
+
+blog + notes + ./src === a Gatsby Site
+
+---
+
+# How?
+
+```js
+// gatsby-config.js
+module.exports = {
+  plugins: [
+    `gatsby-theme-blog`,
+    `gatsby-theme-notes`
+  ]
+};
+```
+
+---
+
+# How?
+
+```js
+const configs = [
+  blogConfig,
+  notesConfig,
+  srcConfig
+];
+
+const site = mergeFlat(configs);
+```
+
+---
+
+# How does `mergeFlat` work?
+
+```js
+// gatsby-theme-blog/gatsby-config.js
+module.exports = {
+  plugins: [
+    `gatsby-plugin-mdx`,
+    `gatsby-source-filesystem`
+  ]
+};
+```
+
+---
+
+# MergeFlat First Pass
+
+```js
+module.exports = {
+  plugins: [
+    `gatsby-plugin-mdx`,
+    `gatsby-source-filesystem`,
+    `gatsby-theme-blog`,
+    `gatsby-theme-notes`
+  ]
+};
+```
+
+---
+
+```js
+// gatsby-theme-notes/gatsby-config.js
+module.exports = {
+  plugins: [
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-theme-ui`
+  ]
+};
+```
+
+---
+
+# MergeFlat Second Pass
+
+```js
+module.exports = {
+  plugins: [
+    `gatsby-plugin-mdx`,
+    `gatsby-source-filesystem`,
+    `gatsby-theme-blog`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-theme-ui`,
+    `gatsby-theme-notes`,
+    ...anyPluginsInSiteConfig
+  ]
+};
+```
+
+---
+
+# MergeFlat is basically Object.assign
+
+(but not quite)
+
+---
+
+# Core Concepts
+
+- array of plugins with `gatsby-config`s
+  - (ordered)
+- merged with `Object.assign`
+- unified into a single config
+
+---
+
+# What about Shadowing?
+
+- array of plugins
+- last plugin to shadow wins
+- same order as `gatsby-config`s
+
+---

@@ -1,0 +1,13 @@
+{
+  "name": "gatsby-themes-carbon-webinar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "christopherbiscardi <chris@christopherbiscardi.com> (@chrisbiscardi)",
+  "license": "MIT",
+  "scripts": {
+    "start": "mdx-deck deck.mdx"
+  },
+  "dependencies": {
+    "mdx-deck": "^3.0.7"
+  }
+}
